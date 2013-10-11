@@ -5,6 +5,10 @@ class window.App extends Backbone.Model
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
+    @get('playerHand').on 'bust', =>
+      @set 'winner', 'dealer'
+    @get('dealerHand').on 'bust', =>
+      @set 'winner', 'player'
 
   endGame: ->
     @get('dealerHand').revealHand()
@@ -15,4 +19,3 @@ class window.App extends Backbone.Model
       @set 'winner', 'dealer'
     else
       @set 'winner', 'player'
-    console.log @get 'winner'
