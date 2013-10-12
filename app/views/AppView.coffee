@@ -1,10 +1,6 @@
 class window.AppView extends Backbone.View
   className: 'table'
-  template: _.template '<div class="button-holder">
-    <button class="hit-button">Hit</button> <button class="stand-button">Stand</button></div>
-    <div class="player-hand-container"></div>
-    <div class="dealer-hand-container"></div>
-  '
+  template: _.template $('#app-template').html()
 
   events:
     "click .hit-button": -> @model.get('playerHand').hit()
@@ -14,7 +10,7 @@ class window.AppView extends Backbone.View
     @render()
     this.model.on 'change:winner', =>
       console.log 'winner', this.model.get 'winner'
-      @render()
+      #@render()
       @removeButtons()
 
   render: ->

@@ -3,21 +3,22 @@ class window.Hand extends Backbone.Collection
   model: Card
 
   initialize: (array, @deck, @isDealer) ->
+    @width = 285
 
-  hit: (x) ->
-    if x > 0
-      newCard = new Card
-        rank: x
-        suit: 1
-      @add(newCard)
+  hit: ->
+    @width += 143
+    if not @isDealer
+      console.log 'test'
+      $ =>
+        $('.playerHand').css({ 'width' : @width})
     else
-      @add(@deck.pop())
+      $ =>
+        $('.dealerHand').css({ width : @width})
+    @add(@deck.pop())
 
     if @getScore() > 21
-      console.log 'bust'
       @trigger 'bust', @
     else if @getScore() is 21
-      console.log 'natural'
       @trigger 'natural'
 
   getScore: ->

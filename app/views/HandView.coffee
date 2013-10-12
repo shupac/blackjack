@@ -12,6 +12,8 @@ class window.HandView extends Backbone.View
   render: ->
     @$el.children().detach()
     @$el.html @template @collection
+    @$el.addClass('dealerHand') if @collection.isDealer
+    @$el.addClass('playerHand') if not @collection.isDealer
     @$el.append @collection.map (card) ->
       new CardView(model: card).$el
     @$('.score').text @collection.getScore()

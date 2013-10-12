@@ -9,12 +9,6 @@ class window.Deck extends Backbone.Collection
         suit: Math.floor(card / 13)
 
   dealPlayer: ->
-    # ace = new Card
-    #   rank: 1
-    #   suit: 1
-    # jack = new Card
-    #   rank: 10
-    #   suit: 1
     hand = new Hand [ @pop(), @pop() ], @
 
   dealDealer: -> new Hand [ @pop().flip(), @pop() ], @, true
