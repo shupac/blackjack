@@ -21,4 +21,5 @@ class window.AppView extends Backbone.View
 
   removeButtons: ->
     $ ->
-      $('button').attr('disabled', true);
+      $('button').attr('disabled', true)
+      $('#startNewGame').attr('disabled', false).delay(1000).fadeIn(300)
