@@ -8,16 +8,16 @@ class window.Hand extends Backbone.Collection
   hit: ->
     @width += 143
     if not @isDealer
-      console.log 'test'
       $ =>
         $('.playerHand').css({ 'width' : @width})
     else
       $ =>
         $('.dealerHand').css({ width : @width})
+
     @add(@deck.pop())
 
     if @getScore() > 21
-      @trigger 'bust', @
+      @trigger 'bust'
     else if @getScore() is 21
       @trigger 'natural'
 

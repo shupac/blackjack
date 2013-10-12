@@ -1,6 +1,2 @@
-new AppView(model: new App()).$el.appendTo 'body'
-
-$ ->
-  $('#startNewGame').on('click', ->
-    $('body').html("")
-    new AppView(model: new App()).$el.appendTo 'body')
+appView = new AppView(model: new App())
+appView.$el.appendTo 'body'
