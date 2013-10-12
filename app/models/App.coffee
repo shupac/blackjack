@@ -6,8 +6,9 @@ class window.App extends Backbone.Model
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
 
+    # not firing to view, as view is not available yet
     if @get('playerHand').getScore() is 21
-      console.log 'blackjack'
+      @set 'winner', 'player'
       @endGame()
 
     @get('playerHand').on 'bust', =>
@@ -29,10 +30,7 @@ class window.App extends Backbone.Model
     if @get('dealerHand').getScore() < 21
       if playerScore > @get('dealerHand').getScore()
         @set 'winner', 'player'
-        # console.log 'player wins'
       else if playerScore < @get('dealerHand').getScore()
         @set 'winner', 'dealer'
-        # console.log 'dealer wins'
       else
         @set 'winner', 'tie'
-        # console.log 'tie'
