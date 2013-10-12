@@ -4,11 +4,28 @@ class window.Hand extends Backbone.Collection
 
   initialize: (array, @deck, @isDealer) ->
 
-  hit: ->
-    @add(@deck.pop()).last()
-    if @scores()[0] > 21
+  hit: (x) ->
+    if x > 0
+      newCard = new Card
+        rank: x
+        suit: 1
+      @add(newCard)
+    else
+      @add(@deck.pop())
+
+    if @getScore() > 21
       console.log 'bust'
       @trigger 'bust', @
+    else if @getScore() is 21
+      console.log 'natural'
+      @trigger 'natural'
+
+  getScore: ->
+    if @scores()[1]
+      if @scores()[1] > 21
+        return @scores()[0]
+      else return @scores()[1]
+    return @scores()[0]
 
   revealHand: -> @at(0).flip()
 
