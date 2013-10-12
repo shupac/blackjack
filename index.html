@@ -6,37 +6,20 @@
     <script src="lib/underscore.js"></script>
     <script src="lib/backbone.js"></script>
   </head>
-  
+
   <body>
-    <script id="app-template" type="text/template">
-      // <div class="dealer-hand-container"></div>
-      // <div class="player-hand-container"></div>
-      // <div class="button-holder">
-      //    <div class='button-box'>
-      //      <button class="hit-button">Hit</button>
-      //    </div>
-      //    <div class='button-box'>
-      //      <button class="stand-button">Stand</button>
-      //    </div>
-      // </div>
-    </script>
-    <script id="hand-view" type="text/template">
-      <h2>
-        <% if(isDealer){ %>Dealer<% }else{ %>You<% } %>
-        (<span class="score"></span>)
-      </h2>
-    </script>
     <script src="compiled/app/models/Card.js"></script>
     <script src="compiled/app/models/Hand.js"></script>
     <script src="compiled/app/models/Deck.js"></script>
+    <script src="compiled/app/models/Player.js"></script>
     <script src="compiled/app/models/App.js"></script>
 
     <script src="compiled/app/views/CardView.js"></script>
     <script src="compiled/app/views/HandView.js"></script>
+    <script src="compiled/app/views/PlayerView.js"></script>
     <script src="compiled/app/views/AppView.js"></script>
 
     <script src="compiled/app/main.js"></script>
-    
   </body>
 
 </html>

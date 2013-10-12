@@ -21,15 +21,17 @@ class window.AppView extends Backbone.View
       <div class="winnerBox"></div>
     </div>
     <div class="mask"></div>
+    <div class="playerContainer"></div>
     '
 
   events:
     "click .hit-button": -> @model.get('playerHand').hit()
     "click .stand-button": -> @model.endGame()
-    "click #startNewGame": -> @model.reset()
+    "click #startNewGame": -> @model.resetHands()
 
 
   initialize: ->
+    @askName()
     @render()
     this.model.on 'change:winner', =>
       console.log 'appview: winner', this.model.get 'winner'
@@ -42,6 +44,7 @@ class window.AppView extends Backbone.View
     @$el.html @template()
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
+    @$('.playerContainer').html new PlayerView(model: @model.get 'player').el
 
   removeButtons: ->
     $ ->
@@ -61,3 +64,6 @@ class window.AppView extends Backbone.View
         $('.messageBox').html(message)
     $ ->
       $('.winnerBox').html(winner + ' wins')
+
+  askName: ->
+    this.model.createPlayer prompt "What's your name?"

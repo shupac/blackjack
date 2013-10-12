@@ -2,6 +2,29 @@
 class window.App extends Backbone.Model
 
   initialize: ->
+    @resetHands()
+
+  endGame: ->
+    @get('dealerHand').revealHand()
+    playerScore = @get('playerHand').getScore()
+
+    while @get('dealerHand').getScore() < 17
+      @get('dealerHand').hit()
+
+    if @get('dealerHand').getScore() < 21
+      if playerScore > @get('dealerHand').getScore()
+        @set 'winner', 'player'
+      else if playerScore < @get('dealerHand').getScore()
+        @set 'winner', 'dealer'
+      else
+        @set 'winner', 'tie'
+
+    if @get('dealerHand').getScore() is 21
+      if playerScore is 21
+        @set 'winner', 'tie'
+      else @set 'winner', 'dealer'
+
+  resetHands: ->
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
@@ -25,24 +48,10 @@ class window.App extends Backbone.Model
       console.log 'app: natural'
       @endGame()
 
-  endGame: ->
-    @get('dealerHand').revealHand()
-    playerScore = @get('playerHand').getScore()
-
-    while @get('dealerHand').getScore() < 17
-      @get('dealerHand').hit()
-
-    if @get('dealerHand').getScore() < 21
-      if playerScore > @get('dealerHand').getScore()
-        @set 'winner', 'player'
-      else if playerScore < @get('dealerHand').getScore()
-        @set 'winner', 'dealer'
-      else
-        @set 'winner', 'tie'
-
-  reset: ->
-    @initialize()
     @unset 'winner', {silent:true}
     @unset 'message', {silent:true}
     console.log 'unset', @get 'winner'
     @trigger 'redraw'
+
+  createPlayer: (name) ->
+    @set 'player', new Player({name: name})
